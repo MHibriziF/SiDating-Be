@@ -14,7 +14,17 @@ import VButton from '@/components/common/VButton.vue';
         <RouterLink to="/profiles" class="w-1/2">
           <VButton class="home-button">Ke Halaman Profile</VButton>
         </RouterLink>
+        <RouterLink to="/posts" class="w-1/2">
+          <VButton class="home-button">Ke Halaman Post</VButton>
+        </RouterLink>
       </div>
     </div>
   </main>
 </template>
+
+<style scoped>
+@reference "@/assets/main.css";
+.home-button {
+  @apply hover:text-pink-600;
+}
+</style>

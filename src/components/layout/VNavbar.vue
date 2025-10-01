@@ -12,5 +12,8 @@ const getLinkClass = (path: string) => route.path === path ? 'text-pink-600' : '
     <nav class="flex gap-4">
       <RouterLink to="/profiles" :class="getLinkClass('/profiles')">Profile</RouterLink>
     </nav>
+    <nav class="flex gap-4">
+      <RouterLink to="/posts" :class="getLinkClass('/posts')">Post</RouterLink>
+    </nav>
   </header>
 </template>

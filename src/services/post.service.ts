@@ -81,11 +81,15 @@ export class PostService {
 
   likePost(id: string, userId: string): boolean {
     const post = this.getPost(id);
-    if (post && !post.likes.includes(userId)) {
+    if (!post) return false;
+    const idx = post.likes.indexOf(userId);
+    if (idx === -1) {
       post.likes.push(userId);
-      return true;
+      return true; // liked
+    } else {
+      post.likes.splice(idx, 1);
+      return false; // unliked
     }
-    return false;
   }
 
   filter(user: string, sort: string): Post[] {
