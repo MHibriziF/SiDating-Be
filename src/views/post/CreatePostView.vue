@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { postService } from '@/services/post.service'
 import VPostForm from '@/components/post/VPostForm.vue'
 import type { PostRequest } from '@/interfaces/post.interface'
-import { toast } from 'vue-sonner'
 import { usePostStore } from '@/stores/post/post.store'
 
 const router = useRouter();

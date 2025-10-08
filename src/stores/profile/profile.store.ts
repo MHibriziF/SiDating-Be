@@ -12,6 +12,16 @@ export const useUserProfileStore = defineStore('userProfile', {
         loading: false,
         error: null as null | string,
     }),
+    getters: {
+        profilesById: (state): Map<string, string> => {
+            const map = new Map<string, string>();
+            for (const profile of state.profiles) {
+                // Pastikan properti 'id' dan 'name' ada di interface UserProfile Anda
+                map.set(profile.id, profile.name);
+            }
+            return map;
+        },
+    },
     actions: {
         async fetchProfiles() {
             this.loading = true;
@@ -22,9 +32,6 @@ export const useUserProfileStore = defineStore('userProfile', {
                 this.profiles = response.data.data;
                 if (this.profiles.length === 0) {
                     toast.warning('Data profil kosong')
-                }
-                else {
-                    toast.success('Data profil berhasil dimuat')
                 }
                 return response.data.data;
             } catch (error) {

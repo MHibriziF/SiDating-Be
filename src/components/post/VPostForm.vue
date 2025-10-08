@@ -2,14 +2,24 @@
 import VInput from '../common/VInput.vue';
 import VTextArea from '../common/VTextArea.vue';
 import VButton from '../common/VButton.vue';
-import { type PropType, toRefs, watch } from 'vue';
+import VDropdown from '../common/VDropdown.vue';
+import { type PropType, toRefs, watch, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router'; 
 import type { PostRequest } from '@/interfaces/post.interface';
-import { profileService } from '@/services/profile.service';
-import VDropdown from '../common/VDropdown.vue';
+import { useUserProfileStore } from '@/stores/profile/profile.store';
+import { storeToRefs } from 'pinia';
 
 const router = useRouter();
-const users = profileService.getAllProfiles();
+
+const userProfileStore = useUserProfileStore();
+const { profiles, loading: profilesLoading } = storeToRefs(userProfileStore);
+
+
+onMounted(() => {
+  if (profiles.value.length === 0) {
+    userProfileStore.fetchProfiles();
+  }
+});
 
 const props = defineProps({
   action: {
@@ -24,15 +34,12 @@ const props = defineProps({
 
 const model = toRefs(props).postModel;
 
-const emit = defineEmits(['update:modelValue']);
-
-watch(
-  () => model,
-  (newValue) => {
-    emit('update:modelValue', newValue);
-  },
-  { deep: true }
-);
+const userOptions = computed(() => {
+  return profiles.value.map(user => ({
+    value: user.id,
+    label: user.name
+  }));
+});
 
 const handleSubmit = async () => await props.action(model.value);
 </script>
@@ -40,11 +47,12 @@ const handleSubmit = async () => await props.action(model.value);
 <template>
   <form @submit.prevent="handleSubmit" class="flex flex-col gap-6 py-4">
     <VDropdown
-      v-model="model.userId"
-      :options="users.map(u => ({ value: u.id, label: u.name }))"
+      v-model="model.userProfileId"
+      :options="userOptions"
+      :disabled="profilesLoading"
       id="user"
       name="user"
-      label="Posted By"
+      :label="profilesLoading ? 'Loading Users...' : 'Posted By'"
     />
     <VTextArea v-model="model.caption" id="caption" name="caption" label="Caption" />
     <VInput v-model="model.imageUrl" id="imageUrl" name="imageUrl" label="Image URL" />
@@ -54,6 +62,3 @@ const handleSubmit = async () => await props.action(model.value);
     </div>
   </form>
 </template>
-
-<style scoped>
-</style>
