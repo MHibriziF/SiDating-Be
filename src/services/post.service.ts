@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 const posts: Post[] = [
   {
     id: uuidv4(),
-    userId: "user1",
+    userProfileId: "user1",
     imageUrl:
       "https://images.unsplash.com/photo-1506905925346-2b1d4c32dfa7?w=500&h=500&fit=crop",
     caption: "Capek APAP, ayo naik gunung. #hiking #sunset #nature",
@@ -13,7 +13,7 @@ const posts: Post[] = [
   },
   {
     id: uuidv4(),
-    userId: "user2",
+    userProfileId: "user2",
     imageUrl:
       "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&h=500&fit=crop",
     caption: "Ngedim sampe pagi.",
@@ -22,7 +22,7 @@ const posts: Post[] = [
   },
   {
     id: uuidv4(),
-    userId: "user3",
+    userProfileId: "user3",
     imageUrl:
       "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=500&h=500&fit=crop",
     caption:
@@ -94,7 +94,7 @@ export class PostService {
 
   filter(user: string, sort: string): Post[] {
     return posts
-      .filter((post) => post.userId === user)
+      .filter((post) => post.userProfileId === user)
       .sort((a, b) => {
         return sort === "asc"
           ? a.createdAt.getTime() - b.createdAt.getTime()

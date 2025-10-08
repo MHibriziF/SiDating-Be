@@ -73,7 +73,7 @@ function applyFilters() {
       <VPostCard
         v-for="p in posts"
         :key="p.id"
-        :username="getDisplayName(p.userId)"
+        :username="getDisplayName(p.userProfileId)"
         :caption="p.caption"
         :image-url="p.imageUrl"
       >

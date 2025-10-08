@@ -16,8 +16,9 @@ export interface UserProfile {
 }
 
 export interface UserProfileRequest {
+  id?: string;
   name: string;
-  nickname: string;
+  nickname: string
   birthdate: string;
   hobbies: string[];
   gender: string;

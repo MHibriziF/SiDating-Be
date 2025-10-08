@@ -15,8 +15,8 @@ const post = computed(() => postService.getPost(postId.value))
 
 const displayName = computed(() => {
   if (!post.value) return ''
-  const profile = profileService.getAllProfiles().find(p => p.id === post.value!.userId)
-  return profile?.name ?? post.value!.userId
+  const profile = profileService.getAllProfiles().find(p => p.id === post.value!.userProfileId)
+  return profile?.name ?? post.value!.userProfileId
 })
 
 const likeCount = ref(0)

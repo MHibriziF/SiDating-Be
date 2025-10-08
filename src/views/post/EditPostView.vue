@@ -17,7 +17,7 @@ if (!existing) {
 }
 
 const postModel = reactive<PostRequest>({
-  userId: existing?.userId || '',
+  userProfileId: existing?.userProfileId || '',
   imageUrl: existing?.imageUrl || '',
   caption: existing?.caption || '',
 })
