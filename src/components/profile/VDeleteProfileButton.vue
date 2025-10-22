@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import VButton from '../common/VButton.vue'
-import { profileService } from '@/services/profile.service'
-import { toast } from 'vue-sonner'
+import { useUserProfileStore } from '@/stores/profile/profile.store'
 
-const emit = defineEmits(['deleted'])
+const userProfileStore = useUserProfileStore()
 
 const { profileId } = defineProps({
   profileId: {
@@ -13,13 +12,7 @@ const { profileId } = defineProps({
 })
 
 const deleteProfile = () => {
-  const removed = profileService.deleteProfile(profileId)
-  if (removed) {
-    toast.success('Profile deleted successfully')
-    emit('deleted', profileId)
-  } else {
-    toast.error('Failed to delete profile')
-  }
+  userProfileStore.deleteProfile(profileId)
 }
 </script>
 

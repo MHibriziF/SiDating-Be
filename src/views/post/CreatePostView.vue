@@ -1,27 +1,26 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { postService } from '@/services/post.service'
 import VPostForm from '@/components/post/VPostForm.vue'
 import type { PostRequest } from '@/interfaces/post.interface'
-import { toast } from 'vue-sonner'
+import { usePostStore } from '@/stores/post/post.store'
 
 const router = useRouter();
 
+const postStore = usePostStore();
+
 const postModel = reactive<PostRequest>({
-  userId: "",
+  userProfileId: "",
   imageUrl: "",
   caption: "",
 });
 
 const addPost = async (bodyRequest: PostRequest) => {
-  if (await postService.createPost(bodyRequest)) {
-    router.push('/posts')
-  } else {
-    toast.error('Failed to create post')
-    return
+  const createPostResponse = await postStore.createPost(bodyRequest);
+
+  if (createPostResponse) {
+    router.push('/posts');
   }
-  toast.success('Post created successfully')
 }
 
 console.log("postModel", postModel);
