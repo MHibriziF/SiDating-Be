@@ -48,7 +48,12 @@ export class ProfileService {
 
   createProfile(profile: UserProfileRequest): UserProfile | null {
     const birthdate = new Date(profile.birthdate);
-
+    for (let existingProfile of profiles) {
+      if (existingProfile.email == profile.email) {
+        return null;
+      }
+    }
+    
     const newProfile: UserProfile = {
       ...profile,
       birthdate,

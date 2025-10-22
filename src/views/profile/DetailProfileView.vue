@@ -5,16 +5,20 @@ import { profileService } from '@/services/profile.service'
 import { format } from 'date-fns'
 import VButton from '@/components/common/VButton.vue'
 import type { UserProfile } from '@/interfaces/profile.interface'
+import { useUserProfileStore } from '@/stores/profile/profile.store'
 
 const route = useRoute()
 const router = useRouter()
+
+const userProfileStore = useUserProfileStore()
 
 const { id: profileId } = route.params as { id: string }
 
 const profile = ref(undefined as undefined | UserProfile)
 
 const getProfile = async () => {
-  profile.value = await profileService.getProfile(profileId as string)
+  const getUserProfileResponse = await userProfileStore.getProfileById(profileId as string)
+  profile.value = getUserProfileResponse ?? undefined
 }
 
 onMounted(async () => {
@@ -31,7 +35,6 @@ onMounted(async () => {
       <div class="w-full flex justify-between">
         <h1 class="text-pink-600 font-bold text-xl">Detail Profil</h1>
       </div>
-
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 pt-6">
         <div>
           <span class="text-sm text-gray-500">Nama Lengkap</span>
@@ -67,11 +70,11 @@ onMounted(async () => {
         </div>
         <div class="md:col-span-2">
           <span class="text-sm text-gray-500">Hobi</span>
-          <p class="text-lg font-bold">{{ profile?.hobbies?.join(", ") }}</p>
+          <p class="text-lg font-bold">{{ profile?.hobbies }}</p>
         </div>
         <div class="md:col-span-2">
           <span class="text-sm text-gray-500">Minat</span>
-          <p class="text-lg font-bold">{{ profile?.interests?.join(", ") }}</p>
+          <p class="text-lg font-bold">{{ profile?.interests }}</p>
         </div>
         <div>
           <span class="text-sm text-gray-500">Email</span>
@@ -94,7 +97,6 @@ onMounted(async () => {
           </p>
         </div>
       </div>
-
       <div class="flex gap-4 pt-6">
         <VButton @click="router.back()" class="bg-slate-600 hover:bg-slate-800 text-white">Kembali</VButton>
         <RouterLink :to="`/profiles/${profileId}/edit`" class="w-full">
@@ -104,7 +106,6 @@ onMounted(async () => {
     </div>
   </main>
 </template>
-
 
 <style scoped>
 </style>

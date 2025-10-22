@@ -1,6 +1,6 @@
 export interface Post {
   id: string;
-  userId: string;
+  userProfileId: string;
   imageUrl: string;
   caption: string;
   createdAt: Date;
@@ -8,7 +8,23 @@ export interface Post {
 }
 
 export interface PostRequest {
-  userId: string;
+  userProfileId: string;
   imageUrl: string;
   caption: string;
+}
+
+export interface UpdatePostRequest {
+  id: string;
+  userProfileId: string;
+  imageUrl?: string;
+  caption?: string;
+}
+
+export interface DeletePostRequest {
+  id: string;
+}
+
+export interface LikePostRequest {
+  userProfileId: string;
+  postId: string;
 }

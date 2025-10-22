@@ -1,25 +1,26 @@
 <script setup lang="ts">
 import VButton from '../common/VButton.vue'
-import { postService } from '@/services/post.service';
-import { toast } from 'vue-sonner'
+import { usePostStore } from '@/stores/post/post.store';
+import { useRoute, useRouter } from 'vue-router';
 
 const emit = defineEmits(['deleted'])
-
-const { postId: postId } = defineProps({
+const postStore = usePostStore();
+const router = useRouter();
+const route = useRoute();
+const props = defineProps({
   postId: {
     type: String,
     required: true,
   },
 })
 
-const deletePost = () => {
-  const removed = postService.deletePost(postId)
-  if (removed) {
-    toast.success('Post deleted successfully')
-    emit('deleted', postId)
-  } else {
-    toast.error('Failed to delete post')
-  }
+const deletePost = async () => {
+    const deleted = await postStore.deletePost({id: props.postId});
+    if (deleted) {      
+      if (route.name === 'detail-post') {
+        await router.push({ name: 'post' });
+      }
+    }
 }
 </script>
 
