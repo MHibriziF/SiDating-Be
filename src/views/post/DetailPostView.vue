@@ -44,10 +44,8 @@ onMounted(async () => {
   }
 })
 
-// 5. Sederhanakan computed properties
 const displayName = computed(() => {
   if (!post.value) return ''
-  // Gunakan getter dari store untuk performa lebih baik
   return profilesById.value.get(post.value.userProfileId) ?? post.value.userProfileId
 })
 
