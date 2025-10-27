@@ -62,3 +62,10 @@ Perintah ini menghapus commit dari riwayat, tetapi perubahan dari commit tersebu
 
 * git reset --mixed <commit-id>
 Perintah ini menghapus commit dari riwayat dan juga dari staging area, tetapi perubahan file-nya masih ada di lokal. Kondisinya akan kembali seperti sebelum menjalankan git add, di mana perubahan masih ada namun belum distaging.
+
+### Pertanyaan 7
+#### Apa itu git revert? 
+`git revert` merupakan perintah dalam Git yang digunakan untuk membatalkan perubahan dari suatu commit dengan cara membuat commit baru yang berisi kebalikan dari commit yang ingin dibatalkan. Dengan cara ini, riwayat commit tetap terjaga dan tidak ada commit yang dihapus. 
+
+#### Apa bedanya dengan git reset?
+`git reset` menghapus commit dengan cara mengubah posisi HEAD dan index secara langsung. Dengan demikian, `git reset` memodifikasi riwayat commit secara langsung. Di sisi lain, `git revert` membatalkan commit dengan membuat commit baru sehingga riwayat commit tetap terjaga.
