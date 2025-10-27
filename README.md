@@ -37,3 +37,28 @@ Perhatikan ilustrasi berikut ini. Ilustrasi berikut didapatkan dengan menjalanka
 Keterangan:
    Box merah: Ilustrasi rebase
    Box biru: Ilustrasi merge
+
+### Pertanyaan 5
+#### Mengapa hal pada langkah no 4 bisa terjadi?
+
+Hal pada langkah 4 terjadi karena kita mencoba untuk berpindah branch tanpa melakukan commit meskipun terdapat perubahan yang terjadi. Git melarang perpindahan branch tanpa commit karena melakukan hal tersebut akan menghapus seluruh perubahan yang ada (yang belum dicommit) pada branch. Hal ini tentunya bukan hal yang ingin dilakukan pada sebagian besar kasus. 
+
+#### Mengapa git stash menjadi solusinya?
+
+`git stash` menjadi solusi karena perintah stash akan menyimpan perubahan yang kita lakukan dalam bentuk stack. Artinya, perubahan yang belum kita commit tidak akan hilang, melainkan disimpan sementara (dalam sebuah stack). Apabila kita ingin mengambil perubahan terakhir yang telah kita simpan pada stash, kita dapat menjalankan perintah `git stash pop`. 
+
+#### Bagaimana jika kita tidak melakukan git stash pop?
+Jika kita tidak menjalankan perintah `git stash pop`, maka perubahan yang baru tersimpan pada stash tidak akan teraplikasikan  
+
+
+### Pertanyaan 6
+#### Sebutkan dan jelaskan tiga tipe git reset!
+
+* git reset --hard <commit-id>
+Perintah ini menghapus commit secara total. Commit yang dihapus akan hilang sepenuhnya dari riwayat, staging area, maupun file lokal. Kondisinya akan kembali seperti sebelum commit tersebut pernah dibuat, seolah-olah commit itu tidak pernah ada.
+
+* git reset --soft <commit-id>
+Perintah ini menghapus commit dari riwayat, tetapi perubahan dari commit tersebut masih tersimpan di staging area. Artinya, kondisinya akan kembali seperti setelah menjalankan git add, seolah commit yang dihapus baru saja distaging.
+
+* git reset --mixed <commit-id>
+Perintah ini menghapus commit dari riwayat dan juga dari staging area, tetapi perubahan file-nya masih ada di lokal. Kondisinya akan kembali seperti sebelum menjalankan git add, di mana perubahan masih ada namun belum distaging.
