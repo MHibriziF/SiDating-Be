@@ -34,3 +34,6 @@ Di sisi lain, git rebase bekerja dengan cara meletakkan commit dari suatu branch
 
 Perhatikan ilustrasi berikut ini. Ilustrasi berikut didapatkan dengan menjalankan perintah `git log --oneline --graph --decorate --all` (saya menyimpan perintah dengan alias sehingga pada screenshot perintah tersebut dijalankan dengan git lg)
 ![alt text](image-2.png)
+Keterangan:
+   Box merah: Ilustrasi rebase
+   Box biru: Ilustrasi merge
